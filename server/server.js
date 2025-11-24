@@ -37,7 +37,7 @@ export default class Server {
     }
 
    routes() {
-    //localhost:3000/api/ejemplo
+    //localhost:3000/api/computadoras
     this.app.use(this.generalRoute, indexRoutes);
     
 

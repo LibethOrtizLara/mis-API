@@ -1,12 +1,11 @@
-import Computadora from '../models/computadora.model.js';
-import mongoose, { Types } from 'mongoose';
-import express from 'express';
-import computadoras from '../routes/computadoras.routes.js';
+import Computadoras from '../models/computadoras.model.js';
+import mongoose from 'mongoose';
 
+// Obtener todas las computadoras
 export const getALLComputadoras = async (req, res) => {
   console.log('Obtiene todas las computadoras');
   try {
-    const computadorasList = await Computadora.find({}, { __v: 0 });
+    const computadorasList = await Computadoras.find({}, { __v: 0 });
     if (computadorasList.length === 0) {
       return res.status(404).json({
         msg: 'No se encontraron computadoras',
@@ -22,6 +21,7 @@ export const getALLComputadoras = async (req, res) => {
   }
 };
 
+// Obtener computadora por ID
 export const getComputadoraById = async (req, res) => {
   console.log('COMPUTADORA POR ID');
   const id = req.params.id;
@@ -31,7 +31,7 @@ export const getComputadoraById = async (req, res) => {
         msg: 'ID no válido',
       });
     }
-    const computadora = await Computadora.findById(id);
+    const computadora = await Computadoras.findById(id);
     if (!computadora) {
       return res.status(404).json({
         msg: 'Computadora no encontrada',
@@ -47,10 +47,11 @@ export const getComputadoraById = async (req, res) => {
   }
 };
 
+// Crear computadora
 export const postComputadora = async (req, res) => {
   console.log('POST COMPUTADORA');
   const body = req.body;
-  const computadora = new Computadora(body);
+  const computadora = new Computadoras(body);
   try {
     const validationError = computadora.validateSync();
     if (validationError) {
@@ -73,6 +74,7 @@ export const postComputadora = async (req, res) => {
   }
 };
 
+// Actualizar computadora
 export const putComputadora = async (req, res) => {
   const id = req.params.id;
   const body = req.body;
@@ -82,18 +84,15 @@ export const putComputadora = async (req, res) => {
         msg: 'ID no válido',
       });
     }
-
-    const computadora = await Computadora.findByIdAndUpdate(id, body, {
+    const computadora = await Computadoras.findByIdAndUpdate(id, body, {
       new: true,
       runValidators: true,
     });
-
     if (!computadora) {
       return res.status(404).json({
         msg: 'Computadora no encontrada',
       });
     }
-
     return res.status(200).json({
       computadora,
     });
@@ -104,6 +103,7 @@ export const putComputadora = async (req, res) => {
   }
 };
 
+// Eliminar computadora
 export const deleteComputadora = async (req, res) => {
   console.log('DELETE COMPUTADORA');
   const id = req.params.id;
@@ -113,14 +113,12 @@ export const deleteComputadora = async (req, res) => {
         msg: 'ID no válido',
       });
     }
-
-    const computadora = await Computadora.findByIdAndDelete(id);
+    const computadora = await Computadoras.findByIdAndDelete(id);
     if (!computadora) {
       return res.status(404).json({
         msg: 'Computadora no encontrada',
       });
     }
-
     return res.status(200).json({
       msg: 'Computadora eliminada',
       computadora,

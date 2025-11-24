@@ -11,8 +11,8 @@ const computadoras = Router();
 
 computadoras.get('/', getALLComputadoras);
 computadoras.get('/:id', getComputadoraById);
-computadoras.put('/:id', putComputadora);
 computadoras.post('/', postComputadora);
+computadoras.put('/:id', putComputadora);
 computadoras.delete('/:id', deleteComputadora);
 
 export default computadoras;

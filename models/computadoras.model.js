@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const computadoraSchema = new mongoose.Schema({
+const computadorasSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
@@ -15,9 +15,9 @@ const computadoraSchema = new mongoose.Schema({
     },
     detalle: {
         type: [String],
-        required: false
+        required: false,
     }
 });
 
-const Computadora = mongoose.model('Computadora', computadoraSchema);
-export default Computadora;
+const Computadoras = mongoose.model('Computadoras', computadorasSchema);
+export default Computadoras;
